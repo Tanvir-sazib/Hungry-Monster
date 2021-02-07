@@ -14,13 +14,6 @@ searchButton.addEventListener('click', () => {
     selectedArea.style.display = "none";
 });
 
-// #############################  click on a item action #########################
-cardParent.addEventListener('click', event => {
-    const selectedArea = document.querySelector(".selected-area");
-    const selectedInput = event.target.innerHTML;
-    getSelectedData(selectedInput);
-    selectedArea.style.display = "block";
-})
 
 // ########################## Fetch a single data #######################
 const getSelectedData = async (inputValue) => {
@@ -28,6 +21,7 @@ const getSelectedData = async (inputValue) => {
 
     let food = await response.json();
     showSelectedItem(food.meals);
+
 }
 
 // ############################# Fetch search data from API ####################
@@ -63,6 +57,7 @@ const foodDisplay = meal => {
     const card = document.createElement('div');
     card.className = "card border-0 col-lg-3 col-md-4 col-sm-12 m-3";
     card.style.width = '18rem';
+    card.setAttribute('onClick', `getSelectedData('${meal.strMeal}')`);
 
     const img = document.createElement('img');
     img.className = "card-img-top card-image";
@@ -70,6 +65,7 @@ const foodDisplay = meal => {
 
     const cardBody = document.createElement('div');
     cardBody.className = "card-body bg-light";
+
 
     const h4 = document.createElement('h4');
     h4.className = "card-title ";
@@ -86,6 +82,8 @@ const foodDisplay = meal => {
 // ###########################  Display details of a selected Item #################
 
 const showSelectedItem = (data) => {
+    const selectedArea = document.querySelector(".selected-area");
+    selectedArea.style.display = "block";
 
     const [selectedMeal] = data;
     console.log(selectedMeal);
