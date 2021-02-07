@@ -26,7 +26,7 @@ const getSelectedData = async (inputValue) => {
 
 // ############################# Fetch search data from API ####################
 const getData = async (inputValue) => {
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`);
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`);
 
     let food = await response.json();
     if (food.meals === null) {
