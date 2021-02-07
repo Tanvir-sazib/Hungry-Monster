@@ -17,7 +17,7 @@ searchButton.addEventListener('click', () => {
 
 // ########################## Fetch a single data #######################
 const getSelectedData = async (inputValue) => {
-    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?f=${inputValue}`);
+    let response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`);
 
     let food = await response.json();
     showSelectedItem(food.meals);
