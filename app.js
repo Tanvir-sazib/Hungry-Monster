@@ -84,38 +84,40 @@ const foodDisplay = meal => {
 const showSelectedItem = (data) => {
     const selectedArea = document.querySelector(".selected-area");
     selectedArea.style.display = "block";
-
     const [selectedMeal] = data;
-    console.log(selectedMeal);
+
     const image = document.getElementById("item-image");
     const title = document.getElementById("item-title");
-
-    const ingredient1 = document.getElementById("ingr-1");
-    const ingredient2 = document.getElementById("ingr-2");
-    const ingredient3 = document.getElementById("ingr-3");
-    const ingredient4 = document.getElementById("ingr-4");
-    const ingredient5 = document.getElementById("ingr-5");
-    const ingredient6 = document.getElementById("ingr-6");
-    const ingredient7 = document.getElementById("ingr-7");
-    const ingredient8 = document.getElementById("ingr-8");
-    const ingredient9 = document.getElementById("ingr-9");
-    const ingredient10 = document.getElementById("ingr-10");
-
-
     image.setAttribute('src', `${selectedMeal.strMealThumb}`)
     title.innerText = `${selectedMeal.strMeal}`;
-    ingredient1.innerText = `${selectedMeal.strMeasure1} ${selectedMeal.strIngredient1}`;
-    ingredient2.innerText = `${selectedMeal.strMeasure2} ${selectedMeal.strIngredient2}`;
-    ingredient3.innerText = `${selectedMeal.strMeasure3} ${selectedMeal.strIngredient3}`;
-    ingredient4.innerText = `${selectedMeal.strMeasure4} ${selectedMeal.strIngredient4}`;
-    ingredient5.innerText = `${selectedMeal.strMeasure5} ${selectedMeal.strIngredient5}`;
-    ingredient6.innerText = `${selectedMeal.strMeasure6} ${selectedMeal.strIngredient6}`;
-    ingredient7.innerText = `${selectedMeal.strMeasure7} ${selectedMeal.strIngredient7}`;
-    ingredient8.innerText = `${selectedMeal.strMeasure8} ${selectedMeal.strIngredient8}`;
-    ingredient9.innerText = `${selectedMeal.strMeasure9} ${selectedMeal.strIngredient9}`;
-    ingredient10.innerText = `${selectedMeal.strMeasure10} ${selectedMeal.strIngredient10}`;
+
+    const dataArray = Object.values(selectedMeal);
+    const ingredientsArray = dataArray.slice(9, 29);
+    const measurementArray = dataArray.slice(29, 49);
+    const ingredients = ingredientsArray.filter(item => item.length > 2 && item); ////// take only items which have value;
+    const mesurements = measurementArray.filter(item => item.length > 2 && item);  ////// take only items which have value;
 
 
+    displayDetails(ingredients, mesurements)
+
+
+    function displayDetails(ingredients, mesurements) {
+        const ulParent = document.getElementById("list-group")
+        ulParent.innerHTML = '';
+
+        ingredients.forEach((ingredient) => {
+            const li = `
+            <li class="list-group-item"><i class="far fa-check-square"></i> <span id="Ingredient">${ingredient}</span></li>
+            `
+            ulParent.innerHTML += li;
+        })
+
+        mesurements.forEach((mesurement) => {
+            const li = document.querySelector('.list-group-item');
+            li.innerHTML += ` - (${mesurement})`
+            ulParent.appendChild(li);
+        })
+    }
 
 }
 
